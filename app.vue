@@ -36,7 +36,6 @@ onMounted(async () => {
 async function logout() {
   await useFetch('/api/logout')
   user.value = null
-  await findProfile()
 }
 </script>
 
