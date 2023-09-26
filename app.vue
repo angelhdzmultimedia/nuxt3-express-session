@@ -13,10 +13,10 @@ async function login() {
       name: name.value,
     },
   })
-  window.location.reload()
+  await findProfile()
 }
 
-onMounted(async () => {
+async function findProfile() {
   try {
     const { data, error } = await useFetch('/api/profile', {
       method: 'get',
@@ -27,11 +27,16 @@ onMounted(async () => {
     }
     user.value = data.value
   } catch (error: unknown) {}
+}
+
+onMounted(async () => {
+  await findProfile()
 })
 
 async function logout() {
   await useFetch('/api/logout')
-  window.location.reload()
+  user.value = null
+  await findProfile()
 }
 </script>
 
